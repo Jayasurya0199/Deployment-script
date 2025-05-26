@@ -2,9 +2,6 @@ Step-by-Step: Use ssh-keygen for Jenkins SSH Credentials
 🔹 1. Generate SSH Key Pair on Ansible Master (if not already done)
 On your Ansible control node (e.g., EC2):
 
-bash
-Copy
-Edit
 ssh-keygen -t rsa -b 4096 -C "jenkins-ansible" -f ~/.ssh/jenkins_ansible_key
 You’ll get:
 
@@ -15,9 +12,6 @@ Public key: ~/.ssh/jenkins_ansible_key.pub
 🔹 2. Add the Public Key to Your Node(s)
 On each Ansible target node (e.g., EC2) you want Jenkins/Ansible to connect to:
 
-bash
-Copy
-Edit
 # Replace `ansadmin` with your target user
 cat ~/.ssh/jenkins_ansible_key.pub >> /home/ansadmin/.ssh/authorized_keys
 
@@ -40,9 +34,6 @@ Username: ansadmin (or your remote SSH user)
 
 Private Key: Select “Enter directly”, then paste the contents of:
 
-bash
-Copy
-Edit
 cat ~/.ssh/jenkins_ansible_key
 Click Save.
 
@@ -51,9 +42,6 @@ Click Save.
 🔹 4. Use the Credential in Your Jenkins Pipeline
 In your Jenkinsfile or UI step:
 
-groovy
-Copy
-Edit
 ansiblePlaybook(
   credentialsId: 'your-credential-id',
   playbook: 'docker-setup.yml',
